@@ -18,6 +18,7 @@ const navItems = [
   { label: "Inventário", icon: ClipboardList, page: "Inventory" },
   { label: "Fornecedores", icon: Truck, page: "Suppliers" },
   { label: "Relatórios", icon: BarChart3, page: "Reports" },
+  { label: "Assistente IA", icon: Bot, page: "Assistant" },
 ];
 
 export default function Layout({ children, currentPageName }) {
