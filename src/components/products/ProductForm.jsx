@@ -18,6 +18,8 @@ export default function ProductForm({ product, onSave, onCancel }) {
     location: product?.location || "",
     unit_cost: product?.unit_cost ?? 0,
     supplier: product?.supplier || "",
+    supplier_id: product?.supplier_id || "",
+    lead_time_days: product?.lead_time_days ?? "",
     description: product?.description || "",
   });
 
