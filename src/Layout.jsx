@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import {
   LayoutDashboard, Package, ArrowLeftRight, FolderOpen,
   ClipboardList, BarChart3, TreePine, Menu, X, LogOut,
-  ChevronRight, Bell, User, AlertTriangle, Warehouse, Truck
+  ChevronRight, Bell, User, AlertTriangle, Warehouse, Truck, Bot
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
