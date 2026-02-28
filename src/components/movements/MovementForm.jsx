@@ -7,8 +7,8 @@ import { format } from "date-fns";
 
 const USAGE_TYPES = ["plantio", "manutenção", "aplicação", "transporte", "administrativo", "outro"];
 
-export default function MovementForm({ type, products, projects, onSave, onCancel }) {
-  const [form, setForm] = useState({
+export default function MovementForm({ type, products, projects, onSave, onCancel, editData }) {
+  const [form, setForm] = useState(editData ? { ...editData } : {
     type,
     date: format(new Date(), "yyyy-MM-dd"),
     product_id: "",
@@ -18,6 +18,8 @@ export default function MovementForm({ type, products, projects, onSave, onCance
     invoice_number: "",
     project_id: "",
     usage_type: "plantio",
+    origin_location: "",
+    destination_location: "",
     responsible: "",
     notes: "",
   });
@@ -42,8 +44,11 @@ export default function MovementForm({ type, products, projects, onSave, onCance
     });
   };
 
-  const typeLabel = type === "entrada" ? "Registrar Entrada" : type === "saida" ? "Registrar Saída" : "Registrar Ajuste";
-  const typeColor = type === "entrada" ? "#16a34a" : type === "saida" ? "#dc2626" : "#2563eb";
+  const currentType = form.type || type;
+  const isEditing = !!editData;
+  const typeLabel = currentType === "entrada" ? "Entrada" : currentType === "saida" ? "Saída" : currentType === "transferencia" ? "Transferência" : "Ajuste";
+  const actionLabel = isEditing ? `Salvar Edição — ${typeLabel}` : `Registrar ${typeLabel}`;
+  const typeColor = currentType === "entrada" ? "#16a34a" : currentType === "saida" ? "#dc2626" : currentType === "transferencia" ? "#7c3aed" : "#2563eb";
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
