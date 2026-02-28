@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { BarChart3, TrendingDown, Clock, ChevronRight } from "lucide-react";
-import PlannedVsActual from "@/components/stock/PlannedVsActual";
+import PlannedVsActual from "@/components/stock/PlannedVsActual.jsx";
 import StockTimeline from "@/components/stock/StockTimeline.jsx";
 import ReplenishmentAlerts from "@/components/stock/ReplenishmentAlerts.jsx";
 
