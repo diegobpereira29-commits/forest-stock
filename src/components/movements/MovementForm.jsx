@@ -53,7 +53,7 @@ export default function MovementForm({ type, products, projects, onSave, onCance
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base font-semibold text-gray-800">{typeLabel}</h2>
+        <h2 className="text-base font-semibold text-gray-800">{actionLabel}</h2>
         <button onClick={onCancel} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500"><X className="w-4 h-4" /></button>
       </div>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -83,7 +83,7 @@ export default function MovementForm({ type, products, projects, onSave, onCance
           </div>
         </div>
 
-        {type === "entrada" && <>
+        {currentType === "entrada" && <>
           <div>
             <Label className="text-xs text-gray-600 mb-1 block">Fornecedor</Label>
             <Input value={form.supplier} onChange={e => set("supplier", e.target.value)} placeholder="Nome do fornecedor" />
@@ -94,7 +94,7 @@ export default function MovementForm({ type, products, projects, onSave, onCance
           </div>
         </>}
 
-        {type === "saida" && <>
+        {currentType === "saida" && <>
           <div>
             <Label className="text-xs text-gray-600 mb-1 block">Projeto</Label>
             <select className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-green-500" value={form.project_id} onChange={e => set("project_id", e.target.value)}>
@@ -107,6 +107,17 @@ export default function MovementForm({ type, products, projects, onSave, onCance
             <select className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-green-500" value={form.usage_type} onChange={e => set("usage_type", e.target.value)}>
               {USAGE_TYPES.map(u => <option key={u}>{u}</option>)}
             </select>
+          </div>
+        </>}
+
+        {currentType === "transferencia" && <>
+          <div>
+            <Label className="text-xs text-gray-600 mb-1 block">Local de Origem</Label>
+            <Input value={form.origin_location || ""} onChange={e => set("origin_location", e.target.value)} placeholder="Ex: Galpão A / Prateleira 2" />
+          </div>
+          <div>
+            <Label className="text-xs text-gray-600 mb-1 block">Local de Destino</Label>
+            <Input value={form.destination_location || ""} onChange={e => set("destination_location", e.target.value)} placeholder="Ex: Galpão B / Setor 1" />
           </div>
         </>}
 
