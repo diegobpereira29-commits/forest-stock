@@ -54,6 +54,7 @@ import Projects from './pages/Projects';
 import Inventory from './pages/Inventory';
 import Reports from './pages/Reports';
 import Stock from './pages/Stock';
+import Suppliers from './pages/Suppliers';
 import __Layout from './Layout.jsx';
 
 
@@ -65,6 +66,7 @@ export const PAGES = {
     "Inventory": Inventory,
     "Reports": Reports,
     "Stock": Stock,
+    "Suppliers": Suppliers,
 }
 
 export const pagesConfig = {

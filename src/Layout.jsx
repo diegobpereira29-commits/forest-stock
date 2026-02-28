@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import {
   LayoutDashboard, Package, ArrowLeftRight, FolderOpen,
   ClipboardList, BarChart3, TreePine, Menu, X, LogOut,
-  ChevronRight, Bell, User, AlertTriangle
+  ChevronRight, Bell, User, AlertTriangle, Warehouse, Truck
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -13,8 +13,10 @@ const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
   { label: "Produtos", icon: Package, page: "Products" },
   { label: "Movimentações", icon: ArrowLeftRight, page: "Movements" },
+  { label: "Estoque", icon: Warehouse, page: "Stock" },
   { label: "Projetos", icon: FolderOpen, page: "Projects" },
   { label: "Inventário", icon: ClipboardList, page: "Inventory" },
+  { label: "Fornecedores", icon: Truck, page: "Suppliers" },
   { label: "Relatórios", icon: BarChart3, page: "Reports" },
 ];
 
@@ -72,7 +74,7 @@ export default function Layout({ children, currentPageName }) {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {navItems.map(({ label, icon: Icon, page }) => {
             const active = currentPageName === page;
             return (
