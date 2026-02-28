@@ -57,6 +57,7 @@ import Reports from './pages/Reports';
 import Stock from './pages/Stock';
 import Suppliers from './pages/Suppliers';
 import Users from './pages/Users';
+import Losses from './pages/Losses';
 import __Layout from './Layout.jsx';
 
 
@@ -71,6 +72,7 @@ export const PAGES = {
     "Stock": Stock,
     "Suppliers": Suppliers,
     "Users": Users,
+    "Losses": Losses,
 }
 
 export const pagesConfig = {
