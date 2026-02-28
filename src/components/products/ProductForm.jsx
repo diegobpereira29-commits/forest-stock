@@ -27,7 +27,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ ...form, current_stock: Number(form.current_stock), min_stock: Number(form.min_stock), unit_cost: Number(form.unit_cost) });
+    onSave({ ...form, current_stock: Number(form.current_stock), min_stock: Number(form.min_stock), unit_cost: Number(form.unit_cost), lead_time_days: form.lead_time_days !== "" ? Number(form.lead_time_days) : undefined });
   };
 
   return (
