@@ -133,7 +133,7 @@ export default function MovementForm({ type, products, projects, onSave, onCance
         <div className="sm:col-span-2 lg:col-span-3 flex justify-end gap-2 pt-2">
           <Button type="button" variant="outline" onClick={onCancel}>Cancelar</Button>
           <Button type="submit" className="text-white" style={{ background: typeColor }}>
-            {typeLabel}
+            {actionLabel}
           </Button>
         </div>
       </form>
