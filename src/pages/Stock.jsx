@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { BarChart3, TrendingDown, Clock, ChevronRight } from "lucide-react";
 import PlannedVsActual from "@/components/stock/PlannedVsActual";
-import StockTimeline from "@/components/stock/StockTimeline";
-import ReplenishmentAlerts from "@/components/stock/ReplenishmentAlerts";
+import StockTimeline from "@/components/stock/StockTimeline.jsx";
+import ReplenishmentAlerts from "@/components/stock/ReplenishmentAlerts.jsx";
 
 export default function Stock() {
   const [products, setProducts] = useState([]);
