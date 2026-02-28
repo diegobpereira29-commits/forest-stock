@@ -77,6 +77,10 @@ export default function ProductForm({ product, onSave, onCancel }) {
           <Label className="text-xs text-gray-600 mb-1 block">Fornecedor</Label>
           <Input value={form.supplier} onChange={e => set("supplier", e.target.value)} placeholder="Nome do fornecedor" />
         </div>
+        <div>
+          <Label className="text-xs text-gray-600 mb-1 block">Lead Time (dias)</Label>
+          <Input type="number" min="0" value={form.lead_time_days} onChange={e => set("lead_time_days", e.target.value)} placeholder="Ex: 7 (deixe vazio p/ usar do fornecedor)" />
+        </div>
         <div className="sm:col-span-2 lg:col-span-3">
           <Label className="text-xs text-gray-600 mb-1 block">Descrição</Label>
           <Input value={form.description} onChange={e => set("description", e.target.value)} placeholder="Descrição adicional (opcional)" />
