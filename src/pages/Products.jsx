@@ -4,7 +4,7 @@ import { Plus, Search, Filter, AlertTriangle, Edit2, Trash2, Package, X } from "
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import ProductForm from "../components/products/ProductForm";
+import ProductForm from "@/components/products/ProductForm";
 
 const CATEGORY_COLORS = {
   Mudas: "bg-green-100 text-green-700",

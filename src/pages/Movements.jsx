@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import MovementForm from "../components/movements/MovementForm";
+import MovementForm from "@/components/movements/MovementForm";
 
 const TYPE_STYLE = {
   entrada: { bg: "bg-green-100 text-green-700", label: "Entrada", icon: ArrowUp },
