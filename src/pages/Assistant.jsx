@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Bot, MessageSquare, Smartphone } from "lucide-react";
-import MessageBubble from "../components/assistant/MessageBubble";
+import MessageBubble from "../components/assistant/MessageBubble.jsx";
 
 const AGENT_NAME = "estoque_assistant";
 
