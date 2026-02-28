@@ -5,26 +5,17 @@ import { base44 } from "@/api/base44Client";
 import {
   LayoutDashboard, Package, ArrowLeftRight, FolderOpen,
   ClipboardList, BarChart3, TreePine, Menu, X, LogOut,
-  ChevronRight, Bell, User, AlertTriangle, Warehouse, Truck, Bot
+  ChevronRight, AlertTriangle, Warehouse, Truck, Bot,
+  Users, ChevronDown, AlertOctagon
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-
-const navItems = [
-  { label: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
-  { label: "Produtos", icon: Package, page: "Products" },
-  { label: "Movimentações", icon: ArrowLeftRight, page: "Movements" },
-  { label: "Estoque", icon: Warehouse, page: "Stock" },
-  { label: "Projetos", icon: FolderOpen, page: "Projects" },
-  { label: "Inventário", icon: ClipboardList, page: "Inventory" },
-  { label: "Fornecedores", icon: Truck, page: "Suppliers" },
-  { label: "Relatórios", icon: BarChart3, page: "Reports" },
-  { label: "Assistente IA", icon: Bot, page: "Assistant" },
-];
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [lowStockCount, setLowStockCount] = useState(0);
+  const [stockOpen, setStockOpen] = useState(
+    ["Stock", "Movements", "Losses"].includes(currentPageName)
+  );
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -34,7 +25,33 @@ export default function Layout({ children, currentPageName }) {
     }).catch(() => {});
   }, []);
 
+  // Keep submenu open if on a stock sub-page
+  useEffect(() => {
+    if (["Stock", "Movements", "Losses"].includes(currentPageName)) {
+      setStockOpen(true);
+    }
+  }, [currentPageName]);
+
   const handleLogout = () => base44.auth.logout();
+  const isAdmin = user?.role === "admin";
+
+  const topNav = [
+    { label: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
+    { label: "Produtos", icon: Package, page: "Products", badge: lowStockCount },
+    { label: "Projetos", icon: FolderOpen, page: "Projects" },
+    { label: "Inventário", icon: ClipboardList, page: "Inventory" },
+    { label: "Fornecedores", icon: Truck, page: "Suppliers" },
+    { label: "Relatórios", icon: BarChart3, page: "Reports" },
+    { label: "Assistente IA", icon: Bot, page: "Assistant" },
+  ];
+
+  const stockSubNav = [
+    { label: "Visão de Estoque", page: "Stock" },
+    { label: "Movimentações", page: "Movements" },
+    { label: "Perdas de Processo", page: "Losses" },
+  ];
+
+  const isStockActive = ["Stock", "Movements", "Losses"].includes(currentPageName);
 
   return (
     <div className="min-h-screen bg-[#f0f4f0] flex font-sans">
@@ -50,9 +67,10 @@ export default function Layout({ children, currentPageName }) {
         }
         .sidebar-link.active { background: rgba(255,255,255,0.15); }
         .sidebar-link:hover { background: rgba(255,255,255,0.1); }
+        .sub-link.active { background: rgba(255,255,255,0.12); }
+        .sub-link:hover { background: rgba(255,255,255,0.07); }
       `}</style>
 
-      {/* Overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/40 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
@@ -75,28 +93,85 @@ export default function Layout({ children, currentPageName }) {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {navItems.map(({ label, icon: Icon, page }) => {
+        <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+          {/* Dashboard */}
+          {[topNav[0]].map(({ label, icon: Icon, page, badge }) => {
             const active = currentPageName === page;
             return (
-              <Link
-                key={page}
-                to={createPageUrl(page)}
-                onClick={() => setSidebarOpen(false)}
-                className={`sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group ${active ? "active" : ""}`}
-              >
+              <Link key={page} to={createPageUrl(page)} onClick={() => setSidebarOpen(false)}
+                className={`sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group ${active ? "active" : ""}`}>
                 <Icon className={`w-4.5 h-4.5 ${active ? "text-green-300" : "text-white/50 group-hover:text-white/80"}`} style={{ width: 18, height: 18 }} />
                 <span className={`text-sm font-medium ${active ? "text-white" : "text-white/60 group-hover:text-white/90"}`}>{label}</span>
-                {label === "Produtos" && lowStockCount > 0 && (
-                  <span className="ml-auto bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">{lowStockCount}</span>
-                )}
                 {active && <ChevronRight className="ml-auto text-white/40 w-3.5 h-3.5" />}
               </Link>
             );
           })}
+
+          {/* Produtos */}
+          {[topNav[1]].map(({ label, icon: Icon, page, badge }) => {
+            const active = currentPageName === page;
+            return (
+              <Link key={page} to={createPageUrl(page)} onClick={() => setSidebarOpen(false)}
+                className={`sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group ${active ? "active" : ""}`}>
+                <Icon style={{ width: 18, height: 18 }} className={active ? "text-green-300" : "text-white/50 group-hover:text-white/80"} />
+                <span className={`text-sm font-medium flex-1 ${active ? "text-white" : "text-white/60 group-hover:text-white/90"}`}>{label}</span>
+                {badge > 0 && <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">{badge}</span>}
+                {active && <ChevronRight className="text-white/40 w-3.5 h-3.5" />}
+              </Link>
+            );
+          })}
+
+          {/* Estoque (submenu) */}
+          <button
+            onClick={() => setStockOpen(o => !o)}
+            className={`sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group ${isStockActive ? "active" : ""}`}>
+            <Warehouse style={{ width: 18, height: 18 }} className={isStockActive ? "text-green-300" : "text-white/50 group-hover:text-white/80"} />
+            <span className={`text-sm font-medium flex-1 text-left ${isStockActive ? "text-white" : "text-white/60 group-hover:text-white/90"}`}>Estoque</span>
+            <ChevronDown className={`w-3.5 h-3.5 text-white/40 transition-transform ${stockOpen ? "rotate-180" : ""}`} />
+          </button>
+          {stockOpen && (
+            <div className="ml-6 pl-3 border-l border-white/10 space-y-0.5 mt-0.5">
+              {stockSubNav.map(({ label, page }) => {
+                const active = currentPageName === page;
+                return (
+                  <Link key={page} to={createPageUrl(page)} onClick={() => setSidebarOpen(false)}
+                    className={`sub-link flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${active ? "active" : ""}`}>
+                    <span className={`text-xs font-medium ${active ? "text-white" : "text-white/50 hover:text-white/80"}`}>{label}</span>
+                    {active && <ChevronRight className="ml-auto text-white/40 w-3 h-3" />}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Rest of nav */}
+          {topNav.slice(2).map(({ label, icon: Icon, page }) => {
+            const active = currentPageName === page;
+            return (
+              <Link key={page} to={createPageUrl(page)} onClick={() => setSidebarOpen(false)}
+                className={`sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group ${active ? "active" : ""}`}>
+                <Icon style={{ width: 18, height: 18 }} className={active ? "text-green-300" : "text-white/50 group-hover:text-white/80"} />
+                <span className={`text-sm font-medium ${active ? "text-white" : "text-white/60 group-hover:text-white/90"}`}>{label}</span>
+                {active && <ChevronRight className="ml-auto text-white/40 w-3.5 h-3.5" />}
+              </Link>
+            );
+          })}
+
+          {/* Usuários — admin only */}
+          {isAdmin && (() => {
+            const active = currentPageName === "Users";
+            return (
+              <Link to={createPageUrl("Users")} onClick={() => setSidebarOpen(false)}
+                className={`sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group ${active ? "active" : ""}`}>
+                <Users style={{ width: 18, height: 18 }} className={active ? "text-green-300" : "text-white/50 group-hover:text-white/80"} />
+                <span className={`text-sm font-medium ${active ? "text-white" : "text-white/60 group-hover:text-white/90"}`}>Usuários</span>
+                {active && <ChevronRight className="ml-auto text-white/40 w-3.5 h-3.5" />}
+              </Link>
+            );
+          })()}
         </nav>
 
-        {/* User */}
+        {/* User footer */}
         <div className="px-4 py-4 border-t border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: "var(--green-accent)" }}>
@@ -104,7 +179,9 @@ export default function Layout({ children, currentPageName }) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white text-xs font-medium truncate">{user?.full_name || user?.email || "Usuário"}</p>
-              <p className="text-white/40 text-xs truncate">{user?.role === "admin" ? "Administrador" : user?.role === "almoxarife" ? "Almoxarifado" : "Gestor"}</p>
+              <p className="text-white/40 text-xs truncate">
+                {user?.role === "admin" ? "Administrador" : user?.role === "almoxarife" ? "Almoxarife" : "Somente Leitura"}
+              </p>
             </div>
             <button onClick={handleLogout} className="text-white/40 hover:text-white/80 transition-colors">
               <LogOut className="w-4 h-4" />
@@ -115,14 +192,17 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Main */}
       <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
-        {/* Topbar */}
         <header className="bg-white border-b border-gray-100 px-4 lg:px-6 py-3 flex items-center gap-4 sticky top-0 z-10">
           <button className="lg:hidden text-gray-500" onClick={() => setSidebarOpen(true)}>
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex-1">
             <h1 className="text-base font-semibold text-gray-800">
-              {navItems.find(n => n.page === currentPageName)?.label || currentPageName}
+              {currentPageName === "Stock" ? "Visão de Estoque"
+                : currentPageName === "Movements" ? "Movimentações"
+                : currentPageName === "Losses" ? "Perdas de Processo"
+                : currentPageName === "Users" ? "Usuários"
+                : currentPageName || ""}
             </h1>
           </div>
           {lowStockCount > 0 && (
