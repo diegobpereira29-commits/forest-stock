@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, ArrowUp, ArrowDown, Search, Filter, ArrowLeftRight, Pencil } from "lucide-react";
+import { ArrowUp, ArrowDown, Search, Filter, ArrowLeftRight, Pencil, MessageSquarePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import MovementForm from "@/components/movements/MovementForm";
+import RequestChangeModal from "@/components/movements/RequestChangeModal";
 
 const TYPE_STYLE = {
   entrada: { bg: "bg-green-100 text-green-700", label: "Entrada", icon: ArrowUp },
