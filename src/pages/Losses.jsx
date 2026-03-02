@@ -111,7 +111,7 @@ export default function Losses() {
           <div className="flex gap-2 justify-end">
             <Button variant="outline" onClick={() => setShowForm(false)}>Cancelar</Button>
             <Button onClick={handleSave} disabled={saving || !form.product_id || !form.quantity} className="bg-orange-600 hover:bg-orange-700 text-white">
-              {saving ? "Salvando..." : "Registrar Perda"}
+              {saving ? "Salvando..." : "Registrar Saída Extraordinária"}
             </Button>
           </div>
         </div>
