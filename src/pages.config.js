@@ -61,6 +61,7 @@ import Stock from './pages/Stock';
 import Suppliers from './pages/Suppliers';
 import TeamAudit from './pages/TeamAudit';
 import Users from './pages/Users';
+import OperationalRisk from './pages/OperationalRisk';
 import __Layout from './Layout.jsx';
 
 
@@ -79,6 +80,7 @@ export const PAGES = {
     "Suppliers": Suppliers,
     "TeamAudit": TeamAudit,
     "Users": Users,
+    "OperationalRisk": OperationalRisk,
 }
 
 export const pagesConfig = {
