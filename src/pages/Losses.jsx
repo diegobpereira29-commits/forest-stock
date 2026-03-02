@@ -79,7 +79,7 @@ export default function Losses() {
       {showForm && canWrite && (
         <div className="bg-white rounded-2xl border border-orange-100 shadow-sm p-5 space-y-4">
           <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-orange-500" /> Nova Perda de Processo
+            <AlertTriangle className="w-4 h-4 text-orange-500" /> Nova Saída Extraordinária
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
