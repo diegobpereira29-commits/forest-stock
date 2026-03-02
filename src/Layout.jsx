@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Package, ArrowLeftRight, FolderOpen,
   ClipboardList, BarChart3, TreePine, Menu, X, LogOut,
   ChevronRight, AlertTriangle, Warehouse, Truck, Bot,
-  Users, ChevronDown, AlertOctagon, UsersRound
+  Users, ChevronDown, AlertOctagon, UsersRound, ShieldAlert
 } from "lucide-react";
 
 export default function Layout({ children, currentPageName }) {
@@ -44,6 +44,7 @@ export default function Layout({ children, currentPageName }) {
     { label: "Relatórios", icon: BarChart3, page: "Reports" },
     { label: "Assistente IA", icon: Bot, page: "Assistant" },
     { label: "Auditoria por Equipe", icon: UsersRound, page: "TeamAudit" },
+    { label: "Auditoria e Governança", icon: ShieldAlert, page: "AuditGovernance" },
   ];
 
   const stockSubNav = [
@@ -204,6 +205,7 @@ export default function Layout({ children, currentPageName }) {
                 : currentPageName === "Losses" ? "Perdas de Processo"
                 : currentPageName === "Users" ? "Usuários"
                 : currentPageName === "TeamAudit" ? "Auditoria por Equipe"
+                : currentPageName === "AuditGovernance" ? "Auditoria e Governança"
                 : currentPageName || ""}
             </h1>
           </div>
