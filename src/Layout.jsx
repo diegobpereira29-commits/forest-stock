@@ -43,6 +43,7 @@ export default function Layout({ children, currentPageName }) {
     { label: "Fornecedores", icon: Truck, page: "Suppliers" },
     { label: "Relatórios", icon: BarChart3, page: "Reports" },
     { label: "Assistente IA", icon: Bot, page: "Assistant" },
+    { label: "Auditoria por Equipe", icon: UsersRound, page: "TeamAudit" },
   ];
 
   const stockSubNav = [
