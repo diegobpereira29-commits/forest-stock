@@ -143,7 +143,7 @@ export default function Movements() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50">
-                  {["Tipo", "Data", "Produto", "Qtd.", "Valor Unit.", "Total", "Projeto/Uso", "Orig./Dest.", "Resp.", "NF", ...(isAdmin ? [""] : [])].map(h => (
+                  {["Tipo", "Data", "Produto", "Qtd.", "Valor Unit.", "Total", "Projeto/Uso", "Orig./Dest.", "Resp.", "NF", ""].map(h => (
                     <th key={h} className="text-left text-xs font-medium text-gray-500 px-4 py-3">{h}</th>
                   ))}
                 </tr>
