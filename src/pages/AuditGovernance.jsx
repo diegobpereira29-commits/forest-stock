@@ -101,7 +101,7 @@ export default function AuditGovernance() {
                 </tr>
               </thead>
               <tbody>
-                {alerts.map(a => (
+               {paginatedAlerts.map(a => (
                   <tr key={a.id} className="border-b border-gray-50 hover:bg-gray-50/50">
                     <td className="px-4 py-2 text-xs font-medium">
                       <span className={`px-2 py-0.5 rounded-full border text-xs ${
