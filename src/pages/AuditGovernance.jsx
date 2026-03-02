@@ -126,6 +126,11 @@ export default function AuditGovernance() {
             </table>
           </div>
         )}
+        {alerts.length > PAGE_SIZE && (
+          <div className="px-4 py-3 border-t border-gray-100">
+            <Pagination page={safePage} totalPages={totalPages} onChange={setPage} totalItems={alerts.length} />
+          </div>
+        )}
       </div>
 
       {/* Produtos sensíveis */}
