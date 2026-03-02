@@ -52,7 +52,7 @@ export default function Reports() {
 
       case "movements":
         return movements.filter(filterByDate).filter(m => filterCat === "all" || m.product_category === filterCat)
-          .map(m => ({ "Tipo": m.type === "entrada" ? "Entrada" : m.type === "saida" ? "Saída" : "Ajuste", "Data": m.date ? format(parseISO(m.date), "dd/MM/yyyy") : "—", "Produto": m.product_name || "—", "Categoria": m.product_category || "—", "Quantidade": m.quantity, "Valor Unit.": `R$ ${(m.unit_value || 0).toFixed(2)}`, "Total": `R$ ${(m.total_value || 0).toFixed(2)}`, "Projeto": m.project_name || "—", "Tipo Uso": m.usage_type || "—", "Responsável": m.responsible || "—", "NF": m.invoice_number || "—" }));
+          .map(m => ({ "Tipo": m.type === "entrada" ? "Entrada Operacional" : m.type === "saida" ? "Saída Planejada" : m.type === "ajuste" ? "Ajuste Manual" : m.type === "transferencia" ? "Transferência Interna" : m.type === "perda" ? "Saída Extraordinária" : m.type, "Data": m.date ? format(parseISO(m.date), "dd/MM/yyyy") : "—", "Produto": m.product_name || "—", "Categoria": m.product_category || "—", "Quantidade": m.quantity, "Valor Unit.": `R$ ${(m.unit_value || 0).toFixed(2)}`, "Total": `R$ ${(m.total_value || 0).toFixed(2)}`, "Projeto": m.project_name || "—", "Tipo Uso": m.usage_type || "—", "Responsável": m.responsible || "—", "NF": m.invoice_number || "—" }));
 
       case "project_consumption": {
         const proj = {};
