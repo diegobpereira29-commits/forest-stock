@@ -153,7 +153,7 @@ export default function Movements() {
               <tbody>
                 {filtered.length === 0 ? (
                   <tr><td colSpan={isAdmin ? 11 : 10} className="text-center text-gray-400 py-12 text-sm">Nenhuma movimentação encontrada</td></tr>
-                ) : filtered.map(m => {
+                ) : paginated.map(m => {
                   const s = TYPE_STYLE[m.type] || TYPE_STYLE.entrada;
                   const Icon = s.icon;
                   return (
@@ -200,7 +200,7 @@ export default function Movements() {
           </div>
         )}
       </div>
-      <p className="text-xs text-gray-400">{filtered.length} movimentação(ões)</p>
+      <Pagination page={safePage} totalPages={totalPages} onChange={setPage} totalItems={filtered.length} />
     </div>
   );
 }
