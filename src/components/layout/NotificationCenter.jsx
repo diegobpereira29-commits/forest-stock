@@ -8,18 +8,20 @@ import {
 } from "lucide-react";
 
 const TYPE_CONFIG = {
-  critical:  { label: "Alertas Críticos",   icon: ShieldAlert, color: "text-red-600",    bg: "bg-red-50",    dot: "bg-red-500"    },
-  pending:   { label: "Solicitações",        icon: MessageSquare, color: "text-amber-600", bg: "bg-amber-50",  dot: "bg-amber-500"  },
-  low_stock: { label: "Estoque Mínimo",      icon: Package,     color: "text-blue-600",  bg: "bg-blue-50",   dot: "bg-blue-500"   },
-  loss:      { label: "Perdas Recentes",     icon: TrendingDown, color: "text-orange-600", bg: "bg-orange-50", dot: "bg-orange-500" },
+  critical:  { label: "Alertas Críticos",   icon: ShieldAlert,   color: "text-red-600",    bg: "bg-red-50",    dot: "bg-red-500"    },
+  pending:   { label: "Solicitações",        icon: MessageSquare, color: "text-amber-600",  bg: "bg-amber-50",  dot: "bg-amber-500"  },
+  low_stock: { label: "Estoque Mínimo",      icon: Package,       color: "text-blue-600",   bg: "bg-blue-50",   dot: "bg-blue-500"   },
+  loss:      { label: "Perdas Recentes",     icon: TrendingDown,  color: "text-orange-600", bg: "bg-orange-50", dot: "bg-orange-500" },
+  proactive: { label: "Alertas Proativos",   icon: AlertTriangle, color: "text-purple-600", bg: "bg-purple-50", dot: "bg-purple-500" },
 };
 
 const FILTERS = [
-  { key: "all",      label: "Todos" },
-  { key: "critical", label: "Críticos" },
-  { key: "pending",  label: "Solicitações" },
-  { key: "low_stock",label: "Estoque" },
-  { key: "loss",     label: "Perdas" },
+  { key: "all",       label: "Todos" },
+  { key: "critical",  label: "Críticos" },
+  { key: "proactive", label: "Proativos" },
+  { key: "pending",   label: "Solicitações" },
+  { key: "low_stock", label: "Estoque" },
+  { key: "loss",      label: "Perdas" },
 ];
 
 const PAGE_SIZE = 6;
