@@ -57,8 +57,15 @@ export default function MovementForm({ type, products, projects, onSave, onCance
     });
   };
 
+  const TYPE_LABELS = {
+    entrada:       "Entrada Operacional",
+    saida:         "Saída Planejada",
+    ajuste:        "Ajuste Manual",
+    transferencia: "Transferência Interna",
+    perda:         "Saída Extraordinária",
+  };
   const isEditing = !!editData;
-  const typeLabel = currentType === "entrada" ? "Entrada" : currentType === "saida" ? "Saída" : currentType === "transferencia" ? "Transferência" : "Ajuste";
+  const typeLabel = TYPE_LABELS[currentType] || currentType;
   const actionLabel = isEditing ? `Salvar Edição — ${typeLabel}` : `Registrar ${typeLabel}`;
   const typeColor = currentType === "entrada" ? "#16a34a" : currentType === "saida" ? "#dc2626" : currentType === "transferencia" ? "#7c3aed" : "#2563eb";
 
