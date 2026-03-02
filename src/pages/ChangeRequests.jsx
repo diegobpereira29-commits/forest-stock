@@ -39,9 +39,13 @@ export default function ChangeRequests() {
   const canReview = user?.role === "admin" || user?.role === "supervisor";
   const canCreate = user?.role === "admin" || user?.role === "almoxarife";
 
-  const filtered = filterStatus === "all"
-    ? requests
-    : requests.filter(r => r.status === filterStatus);
+  const filtered = useMemo(() => (
+    filterStatus === "all" ? requests : requests.filter(r => r.status === filterStatus)
+  ), [requests, filterStatus]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   return (
     <div className="space-y-4">
