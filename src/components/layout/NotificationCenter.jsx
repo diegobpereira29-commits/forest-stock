@@ -152,11 +152,15 @@ export default function NotificationCenter() {
     localStorage.setItem("readNotifIds", JSON.stringify([...ids]));
   };
 
-  const markRead = (id) => {
+  const markRead = (id, dbId) => {
     const next = new Set(readIds);
     next.add(id);
     setReadIds(next);
     persistRead(next);
+    // Also update DB record if it's a saved notification
+    if (dbId) {
+      base44.entities.Notification.update(dbId, { read: true }).catch(() => {});
+    }
   };
 
   const markAllRead = () => {
