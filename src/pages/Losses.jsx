@@ -71,7 +71,7 @@ export default function Losses() {
         </div>
         {canWrite && (
           <Button onClick={() => setShowForm(!showForm)} className="bg-orange-600 hover:bg-orange-700 text-white">
-            <Plus className="w-3.5 h-3.5 mr-1" /> Registrar Perda
+            <Plus className="w-3.5 h-3.5 mr-1" /> Registrar Saída Extraordinária
           </Button>
         )}
       </div>
