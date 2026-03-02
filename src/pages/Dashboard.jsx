@@ -157,6 +157,9 @@ export default function Dashboard() {
         </div>
       )}
 
+      {/* Health Score */}
+      <HealthScore score={healthScore} details={healthDetails} loading={healthLoading} />
+
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total de Itens" value={products.length} subtitle={`${products.filter(p => p.active !== false).length} ativos`} icon={Package} color="#1a6b3c" />
