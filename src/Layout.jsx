@@ -210,6 +210,7 @@ export default function Layout({ children, currentPageName }) {
                 : currentPageName === "TeamAudit" ? "Auditoria por Equipe"
                 : currentPageName === "AuditGovernance" ? "Auditoria e Governança"
                 : currentPageName === "ChangeRequests" ? "Solicitações de Alteração"
+                : currentPageName === "OperationalRisk" ? "Risco Operacional"
                 : currentPageName || ""}
             </h1>
           </div>
