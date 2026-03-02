@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
-import { ArrowUp, ArrowDown, Search, Filter, ArrowLeftRight, Pencil, MessageSquarePlus } from "lucide-react";
+import { ArrowUp, ArrowDown, Search, SlidersHorizontal, ArrowLeftRight, Pencil, MessageSquarePlus } from "lucide-react";
 import Pagination, { PAGE_SIZE } from "@/components/ui/Pagination";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,13 +8,14 @@ import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import MovementForm from "@/components/movements/MovementForm";
 import RequestChangeModal from "@/components/movements/RequestChangeModal";
+import { MOVEMENT_LABELS } from "@/components/shared/movementTypes";
 
 const TYPE_STYLE = {
-  entrada: { bg: "bg-green-100 text-green-700", label: "Entrada", icon: ArrowUp },
-  saida: { bg: "bg-red-100 text-red-700", label: "Saída", icon: ArrowDown },
-  ajuste: { bg: "bg-blue-100 text-blue-700", label: "Ajuste", icon: Filter },
-  transferencia: { bg: "bg-purple-100 text-purple-700", label: "Transferência", icon: ArrowLeftRight },
-  perda: { bg: "bg-orange-100 text-orange-700", label: "Perda", icon: Filter },
+  entrada:       { bg: "bg-green-100 text-green-700",  label: MOVEMENT_LABELS.entrada,       icon: ArrowUp },
+  saida:         { bg: "bg-red-100 text-red-700",      label: MOVEMENT_LABELS.saida,          icon: ArrowDown },
+  ajuste:        { bg: "bg-blue-100 text-blue-700",    label: MOVEMENT_LABELS.ajuste,         icon: SlidersHorizontal },
+  transferencia: { bg: "bg-purple-100 text-purple-700",label: MOVEMENT_LABELS.transferencia,  icon: ArrowLeftRight },
+  perda:         { bg: "bg-orange-100 text-orange-700",label: MOVEMENT_LABELS.perda,          icon: SlidersHorizontal },
 };
 
 export default function Movements() {
@@ -36,7 +37,6 @@ export default function Movements() {
     base44.auth.me().then(setCurrentUser).catch(() => {});
   }, []);
 
-  // Reset page when filters change
   useEffect(() => { setPage(1); }, [search, filterType, filterDate]);
 
   const load = () => {
@@ -64,14 +64,9 @@ export default function Movements() {
   const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   const handleSave = async (data) => {
-    const payload = editData
-      ? { data, movement_id: editData.id }
-      : { data };
+    const payload = editData ? { data, movement_id: editData.id } : { data };
     const res = await base44.functions.invoke("saveMovement", payload);
-    if (res.data?.error) {
-      alert(`Erro: ${res.data.error}`);
-      return;
-    }
+    if (res.data?.error) { alert(`Erro: ${res.data.error}`); return; }
     setShowForm(false);
     setEditData(null);
     load();
@@ -92,22 +87,22 @@ export default function Movements() {
         <div className="flex gap-2 flex-wrap">
           <select className="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white focus:outline-none" value={filterType} onChange={e => setFilterType(e.target.value)}>
             <option value="all">Todos os tipos</option>
-            <option value="entrada">Entradas</option>
-            <option value="saida">Saídas</option>
-            <option value="transferencia">Transferências</option>
-            <option value="ajuste">Ajustes</option>
-            <option value="perda">Perdas</option>
+            <option value="entrada">{MOVEMENT_LABELS.entrada}</option>
+            <option value="saida">{MOVEMENT_LABELS.saida}</option>
+            <option value="transferencia">{MOVEMENT_LABELS.transferencia}</option>
+            <option value="ajuste">{MOVEMENT_LABELS.ajuste}</option>
+            <option value="perda">{MOVEMENT_LABELS.perda}</option>
           </select>
           <Input type="month" className="bg-white w-36" value={filterDate} onChange={e => setFilterDate(e.target.value)} />
           {canWrite && <>
             <Button onClick={() => openForm("entrada")} className="bg-green-600 hover:bg-green-700 text-white">
-              <ArrowUp className="w-3.5 h-3.5 mr-1" /> Entrada
+              <ArrowUp className="w-3.5 h-3.5 mr-1" /> Entrada Operacional
             </Button>
             <Button onClick={() => openForm("saida")} className="bg-red-500 hover:bg-red-600 text-white">
-              <ArrowDown className="w-3.5 h-3.5 mr-1" /> Saída
+              <ArrowDown className="w-3.5 h-3.5 mr-1" /> Saída Planejada
             </Button>
             <Button onClick={() => openForm("transferencia")} className="bg-purple-600 hover:bg-purple-700 text-white">
-              <ArrowLeftRight className="w-3.5 h-3.5 mr-1" /> Transferência
+              <ArrowLeftRight className="w-3.5 h-3.5 mr-1" /> Transferência Interna
             </Button>
           </>}
         </div>
@@ -152,14 +147,14 @@ export default function Movements() {
               </thead>
               <tbody>
                 {filtered.length === 0 ? (
-                  <tr><td colSpan={isAdmin ? 11 : 10} className="text-center text-gray-400 py-12 text-sm">Nenhuma movimentação encontrada</td></tr>
+                  <tr><td colSpan={11} className="text-center text-gray-400 py-12 text-sm">Nenhuma movimentação encontrada</td></tr>
                 ) : paginated.map(m => {
                   const s = TYPE_STYLE[m.type] || TYPE_STYLE.entrada;
                   const Icon = s.icon;
                   return (
                     <tr key={m.id} className="border-b border-gray-50 hover:bg-gray-50/50">
                       <td className="px-4 py-3">
-                        <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${s.bg}`}>
+                        <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full whitespace-nowrap ${s.bg}`}>
                           <Icon className="w-3 h-3" />{s.label}
                         </span>
                       </td>
