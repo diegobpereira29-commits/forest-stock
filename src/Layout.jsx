@@ -14,7 +14,7 @@ export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
   const [lowStockCount, setLowStockCount] = useState(0);
   const [stockOpen, setStockOpen] = useState(
-    ["Stock", "Movements", "Losses"].includes(currentPageName)
+    ["Stock", "Movements", "Losses", "ChangeRequests"].includes(currentPageName)
   );
 
   useEffect(() => {
