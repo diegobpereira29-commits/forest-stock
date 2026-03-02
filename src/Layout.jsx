@@ -51,9 +51,10 @@ export default function Layout({ children, currentPageName }) {
     { label: "Visão de Estoque", page: "Stock" },
     { label: "Movimentações", page: "Movements" },
     { label: "Perdas de Processo", page: "Losses" },
+    { label: "Solicitações", page: "ChangeRequests" },
   ];
 
-  const isStockActive = ["Stock", "Movements", "Losses"].includes(currentPageName);
+  const isStockActive = ["Stock", "Movements", "Losses", "ChangeRequests"].includes(currentPageName);
 
   return (
     <div className="min-h-screen bg-[#f0f4f0] flex font-sans">
