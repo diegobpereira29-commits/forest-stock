@@ -183,7 +183,7 @@ export default function Layout({ children, currentPageName }) {
             <div className="flex-1 min-w-0">
               <p className="text-white text-xs font-medium truncate">{user?.full_name || user?.email || "Usuário"}</p>
               <p className="text-white/40 text-xs truncate">
-                {user?.role === "admin" ? "Administrador" : user?.role === "almoxarife" ? "Almoxarife" : "Somente Leitura"}
+                {user?.role === "admin" ? "Administrador" : user?.role === "supervisor" ? "Supervisor" : user?.role === "almoxarife" ? "Almoxarife" : "Somente Leitura"}
               </p>
             </div>
             <button onClick={handleLogout} className="text-white/40 hover:text-white/80 transition-colors">
