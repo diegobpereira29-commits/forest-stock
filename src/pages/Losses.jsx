@@ -34,21 +34,23 @@ export default function Losses() {
     if (!form.product_id || !form.quantity) return;
     setSaving(true);
     const product = products.find(p => p.id === form.product_id);
-    await base44.entities.Movement.create({
-      type: "perda",
-      date: form.date,
-      product_id: form.product_id,
-      product_name: product?.name || "",
-      product_category: product?.category || "",
-      quantity: Number(form.quantity),
-      loss_reason: form.loss_reason,
-      notes: form.notes,
-      responsible: currentUser?.full_name || currentUser?.email || "",
+    const res = await base44.functions.invoke("saveMovement", {
+      data: {
+        type: "perda",
+        date: form.date,
+        product_id: form.product_id,
+        product_name: product?.name || "",
+        product_category: product?.category || "",
+        quantity: Number(form.quantity),
+        loss_reason: form.loss_reason,
+        notes: form.notes,
+        responsible: currentUser?.full_name || currentUser?.email || "",
+      }
     });
-    // Update stock
-    if (product) {
-      const newStock = Math.max(0, Number(product.current_stock || 0) - Number(form.quantity));
-      await base44.entities.Product.update(product.id, { current_stock: newStock });
+    if (res.data?.error) {
+      alert(`Erro: ${res.data.error}`);
+      setSaving(false);
+      return;
     }
     setShowForm(false);
     setForm({ product_id: "", quantity: "", loss_reason: "", date: new Date().toISOString().split("T")[0], notes: "" });
