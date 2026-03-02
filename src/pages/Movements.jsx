@@ -176,13 +176,20 @@ export default function Movements() {
                       </td>
                       <td className="px-4 py-3 text-gray-500 text-xs">{m.responsible || "—"}</td>
                       <td className="px-4 py-3 text-gray-400 text-xs font-mono">{m.invoice_number || "—"}</td>
-                      {isAdmin && (
-                        <td className="px-4 py-3">
-                          <button onClick={() => openEdit(m)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors">
-                            <Pencil className="w-3.5 h-3.5" />
-                          </button>
-                        </td>
-                      )}
+                      <td className="px-4 py-3">
+                        <div className="flex gap-1">
+                          {isAdmin && (
+                            <button onClick={() => openEdit(m)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors" title="Editar">
+                              <Pencil className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                          {(isAlmoxarife || isAdmin) && (
+                            <button onClick={() => openRequest(m)} className="p-1.5 rounded-lg hover:bg-amber-50 text-gray-400 hover:text-amber-600 transition-colors" title="Solicitar alteração">
+                              <MessageSquarePlus className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      </td>
                     </tr>
                   );
                 })}
