@@ -55,20 +55,13 @@ export default function Movements() {
   });
 
   const handleSave = async (data) => {
-    if (editData) {
-      // Editing existing movement (admin only)
-      await base44.entities.Movement.update(editData.id, data);
-    } else {
-      await base44.entities.Movement.create(data);
-      // Update product stock for new movements
-      const product = products.find(p => p.id === data.product_id);
-      if (product) {
-        let newStock = Number(product.current_stock || 0);
-        if (data.type === "entrada") newStock += Number(data.quantity);
-        else if (data.type === "saida" || data.type === "perda") newStock -= Number(data.quantity);
-        else if (data.type === "ajuste") newStock = Number(data.quantity);
-        await base44.entities.Product.update(product.id, { current_stock: Math.max(0, newStock) });
-      }
+    const payload = editData
+      ? { data, movement_id: editData.id }
+      : { data };
+    const res = await base44.functions.invoke("saveMovement", payload);
+    if (res.data?.error) {
+      alert(`Erro: ${res.data.error}`);
+      return;
     }
     setShowForm(false);
     setEditData(null);
