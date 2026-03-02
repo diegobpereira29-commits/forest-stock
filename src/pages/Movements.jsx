@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
-import { ArrowUp, ArrowDown, Search, SlidersHorizontal, ArrowLeftRight, Pencil, MessageSquarePlus } from "lucide-react";
+import { ArrowUp, ArrowDown, Search, SlidersHorizontal, ArrowLeftRight, Pencil, MessageSquarePlus, History } from "lucide-react";
 import Pagination, { PAGE_SIZE } from "@/components/ui/Pagination";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
