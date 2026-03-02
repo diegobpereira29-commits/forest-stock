@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Package, TrendingUp, TrendingDown, AlertTriangle,
-  ArrowUpRight, ArrowDownRight, Leaf, DollarSign
+  ArrowUpRight, ArrowDownRight, DollarSign
 } from "lucide-react";
+import HealthScore from "@/components/dashboard/HealthScore";
 import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
