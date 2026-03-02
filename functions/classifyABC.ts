@@ -3,8 +3,17 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+
+    // 1. Authentication check
     const user = await base44.auth.me();
-    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // 2. Role-based access control — admin only
+    if (user.role !== 'admin') {
+      return Response.json({ error: 'Forbidden: only admin can run ABC classification' }, { status: 403 });
+    }
 
     const now = new Date();
     const cutoff = new Date(now);
@@ -17,11 +26,8 @@ Deno.serve(async (req) => {
     ]);
 
     const activeProducts = products.filter(p => p.active !== false);
-
-    // Filter movements in last 90 days
     const recentMovements = movements.filter(m => m.date && m.date >= cutoffStr);
 
-    // Calculate VM and FM per product
     const stats = {};
     for (const p of activeProducts) {
       stats[p.id] = { vm: 0, fm: 0 };
@@ -53,7 +59,6 @@ Deno.serve(async (req) => {
       return { class: 'C', score, frequencyDays: 30 };
     };
 
-    // Update each product classification and upsert schedule
     const today = now.toISOString().split('T')[0];
     const existingSchedules = await base44.asServiceRole.entities.CycleInventorySchedule.list();
     const scheduleByProduct = {};
@@ -61,25 +66,21 @@ Deno.serve(async (req) => {
       scheduleByProduct[s.product_id] = s;
     }
 
-    let classified = { A: 0, B: 0, C: 0 };
+    const classified = { A: 0, B: 0, C: 0 };
 
     for (const p of activeProducts) {
       const s = stats[p.id] || { vm: 0, fm: 0 };
       const result = classifyProduct(s.vm, s.fm, vmValues, fmValues);
 
-      // Update product class
       await base44.asServiceRole.entities.Product.update(p.id, {
         inventory_class: result.class,
       });
 
       classified[result.class]++;
 
-      // Upsert schedule
       const existing = scheduleByProduct[p.id];
-      const nextCountDate = existing?.next_count_date || today;
 
       if (existing) {
-        // Update frequency and class, recalculate next_count_date if needed
         const newNextDate = existing.last_count_date
           ? (() => {
               const d = new Date(existing.last_count_date);
@@ -100,7 +101,6 @@ Deno.serve(async (req) => {
           status,
         });
       } else {
-        // Create new schedule
         const nextDate = new Date(now);
         nextDate.setDate(nextDate.getDate() + result.frequencyDays);
         await base44.asServiceRole.entities.CycleInventorySchedule.create({

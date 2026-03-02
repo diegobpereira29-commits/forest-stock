@@ -19,12 +19,18 @@ function inRange(dateStr, startStr, endStr) {
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+
+    // 1. Authentication check
     const user = await base44.auth.me();
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Load data (bounded)
+    // 2. Role-based access control — admin only
+    if (user.role !== 'admin') {
+      return Response.json({ error: 'Forbidden: only admin can run audit' }, { status: 403 });
+    }
+
     const [movements, plannings, products, teams, projects] = await Promise.all([
       base44.entities.Movement.list('-date', 2000),
       base44.entities.ProjectPlanning.list('-period_start', 1000),
@@ -37,7 +43,6 @@ Deno.serve(async (req) => {
     const teamById = Object.fromEntries(teams.map(t => [t.id, t]));
     const projById = Object.fromEntries(projects.map(p => [p.id, p]));
 
-    // Index plannings by project+product
     const planIndex = {};
     for (const p of plannings) {
       const key = `${p.project_id || ''}__${p.product_id || ''}`;
@@ -54,7 +59,6 @@ Deno.serve(async (req) => {
     const ajustes60 = movements.filter(m => m.type === 'ajuste' && m.date >= sixtyStr);
     const perdas60 = movements.filter(m => m.type === 'perda' && m.date >= sixtyStr);
 
-    // Helper to avoid duplicates via composite_key or ids
     async function ensureAlert(where, payload) {
       const existing = await base44.entities.AuditAlert.filter(where, '-created_date', 1);
       if (existing && existing.length > 0) {
@@ -108,7 +112,6 @@ Deno.serve(async (req) => {
     // 2) Desvio de planejamento (> 15% acima)
     let deviationCount = 0;
     for (const p of plannings) {
-      const key = `${p.project_id || ''}__${p.product_id || ''}`;
       const real = saidas
         .filter(m => m.project_id === p.project_id && m.product_id === p.product_id && inRange(m.date, p.period_start, p.period_end))
         .reduce((sum, m) => sum + Number(m.quantity || 0), 0);
@@ -123,7 +126,7 @@ Deno.serve(async (req) => {
           {
             type: 'plan_deviation',
             severity: 'high',
-            description: `Desvio: ${prod?.name || 'Produto'} em ${proj?.name || 'Projeto'} — Real ${real} vs Planejado ${planned} (${((real/planned)*100).toFixed(0)}%)`,
+            description: `Desvio: ${prod?.name || 'Produto'} em ${proj?.name || 'Projeto'} — Real ${real} vs Planejado ${planned} (${((real / planned) * 100).toFixed(0)}%)`,
             composite_key: composite,
             product_id: p.product_id,
             product_name: prod?.name || '',
@@ -158,7 +161,7 @@ Deno.serve(async (req) => {
       }
     }
 
-    // 4) Risco operacional (equipes com perdas acima da média em 60 dias)
+    // 4) Risco operacional por equipe (perdas acima da média em 60 dias)
     let teamRiskCount = 0;
     const perdasByTeam = {};
     for (const m of perdas60) {
@@ -167,7 +170,7 @@ Deno.serve(async (req) => {
       perdasByTeam[m.team_id] += Number(m.quantity || 0);
     }
     const teamValues = Object.values(perdasByTeam);
-    const avg = teamValues.length > 0 ? teamValues.reduce((a,b) => a + b, 0) / teamValues.length : 0;
+    const avg = teamValues.length > 0 ? teamValues.reduce((a, b) => a + b, 0) / teamValues.length : 0;
     for (const [tid, val] of Object.entries(perdasByTeam)) {
       if (val > avg && avg > 0) {
         teamRiskCount++;
