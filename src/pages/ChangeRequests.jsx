@@ -19,6 +19,7 @@ export default function ChangeRequests() {
   const [user, setUser]         = useState(null);
   const [selected, setSelected] = useState(null);
   const [filterStatus, setFilterStatus] = useState("all");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});

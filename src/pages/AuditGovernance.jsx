@@ -8,6 +8,7 @@ export default function AuditGovernance() {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
+  const [page, setPage] = useState(1);
 
   const load = async () => {
     setLoading(true);

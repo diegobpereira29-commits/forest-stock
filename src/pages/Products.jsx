@@ -26,21 +26,26 @@ export default function Products() {
   const [filterAlert, setFilterAlert] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
+  const [page, setPage] = useState(1);
 
   const load = () => {
     setLoading(true);
-    base44.entities.Product.list("-created_date", 200).then(p => { setProducts(p); setLoading(false); });
+    base44.entities.Product.list("-created_date", 100).then(p => { setProducts(p); setLoading(false); });
   };
   useEffect(load, []);
 
   const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
 
-  const filtered = products.filter(p => {
+  const filtered = useMemo(() => products.filter(p => {
     const matchSearch = !search || p.name?.toLowerCase().includes(search.toLowerCase()) || p.code?.toLowerCase().includes(search.toLowerCase());
     const matchCat = filterCat === "all" || p.category === filterCat;
     const matchAlert = !filterAlert || (p.min_stock > 0 && p.current_stock <= p.min_stock);
     return matchSearch && matchCat && matchAlert;
-  });
+  }), [products, search, filterCat, filterAlert]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   const handleSave = async (data) => {
     if (editing) {

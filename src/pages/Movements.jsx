@@ -30,6 +30,7 @@ export default function Movements() {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterDate, setFilterDate] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     base44.auth.me().then(setCurrentUser).catch(() => {});
