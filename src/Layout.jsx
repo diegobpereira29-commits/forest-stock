@@ -213,11 +213,12 @@ export default function Layout({ children, currentPageName }) {
             </h1>
           </div>
           {lowStockCount > 0 && (
-            <div className="flex items-center gap-1.5 bg-red-50 text-red-600 text-xs font-medium px-3 py-1.5 rounded-full">
+            <div className="hidden sm:flex items-center gap-1.5 bg-red-50 text-red-600 text-xs font-medium px-3 py-1.5 rounded-full">
               <AlertTriangle className="w-3.5 h-3.5" />
               {lowStockCount} itens em alerta
             </div>
           )}
+          <NotificationCenter />
         </header>
 
         <main className="flex-1 p-4 lg:p-6">
