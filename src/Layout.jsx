@@ -27,7 +27,7 @@ export default function Layout({ children, currentPageName }) {
 
   // Keep submenu open if on a stock sub-page
   useEffect(() => {
-    if (["Stock", "Movements", "Losses"].includes(currentPageName)) {
+    if (["Stock", "Movements", "Losses", "ChangeRequests"].includes(currentPageName)) {
       setStockOpen(true);
     }
   }, [currentPageName]);
