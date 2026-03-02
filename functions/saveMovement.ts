@@ -91,7 +91,7 @@ Deno.serve(async (req) => {
             user_name: user.full_name || user.email,
             action: 'Falha ao criar movimentação — estoque insuficiente',
             module: 'Movimentações',
-            details: `Tipo: ${data.type} | Produto: ${prod.name} | Estoque atual: ${prod.current_stock} | Qtd solicitada: ${data.quantity} | Resultado projetado: ${projected}`,
+            details: `Tipo: ${data.type} | Produto: ${prod.name} | Estoque atual: ${prod.current_stock} | Qtd. solicitada: ${data.quantity} | Resultado projetado: ${projected}`,
           });
           return Response.json({
             error: `Estoque insuficiente para "${prod.name}". Saldo atual: ${prod.current_stock} ${prod.unit}. Quantidade solicitada: ${data.quantity}.`,
