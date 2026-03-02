@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Clock, CheckCircle, XCircle, MessageSquarePlus, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import RequestReviewModal from "@/components/movements/RequestReviewModal";
+import Pagination, { PAGE_SIZE } from "@/components/ui/Pagination";
 
 const STATUS_STYLE = {
   pendente:  { bg: "bg-amber-100 text-amber-700",  icon: Clock,         label: "Pendente" },

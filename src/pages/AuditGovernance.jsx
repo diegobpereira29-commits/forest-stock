@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, ShieldAlert, Activity, CircleDot, Loader2, UsersRound, PackageSearch } from "lucide-react";
+import Pagination, { PAGE_SIZE } from "@/components/ui/Pagination";
 
 export default function AuditGovernance() {
   const [alerts, setAlerts] = useState([]);

@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
 import { Plus, Search, Filter, AlertTriangle, Edit2, Trash2, Package, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import ProductForm from "@/components/products/ProductForm";
+import Pagination, { PAGE_SIZE } from "@/components/ui/Pagination";
 
 const CATEGORY_COLORS = {
   Mudas: "bg-green-100 text-green-700",
