@@ -257,15 +257,19 @@ export default function NotificationCenter() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
-                        <Link
-                          to={n.link}
-                          onClick={() => { markRead(n.id); setOpen(false); }}
-                          className="text-xs font-semibold text-gray-800 hover:text-green-700 leading-snug"
-                        >
-                          {n.title}
-                        </Link>
+                        {n.link ? (
+                         <Link
+                           to={n.link}
+                           onClick={() => { markRead(n.id, n.dbId); setOpen(false); }}
+                           className="text-xs font-semibold text-gray-800 hover:text-green-700 leading-snug"
+                         >
+                           {n.title}
+                         </Link>
+                        ) : (
+                         <span className="text-xs font-semibold text-gray-800 leading-snug">{n.title}</span>
+                        )}
                         {!n.read && (
-                          <button onClick={() => markRead(n.id)} title="Marcar como lida">
+                         <button onClick={() => markRead(n.id, n.dbId)} title="Marcar como lida">
                             <span className={`shrink-0 w-2 h-2 rounded-full mt-1 ${cfg.dot}`} />
                           </button>
                         )}
