@@ -194,6 +194,9 @@ export default function Movements() {
                               <MessageSquarePlus className="w-3.5 h-3.5" />
                             </button>
                           )}
+                          <button onClick={() => setHistoryMovementId(m.id)} className="p-1.5 rounded-lg hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors" title="Ver histórico">
+                            <History className="w-3.5 h-3.5" />
+                          </button>
                         </div>
                       </td>
                     </tr>
