@@ -21,29 +21,12 @@ export default function RequestReviewModal({ request, canReview, currentUser, on
 
   const handleDecision = async (decision) => {
     setSaving(true);
-    const now = new Date().toISOString().split("T")[0];
     try {
-      await base44.entities.MovementChangeRequest.update(request.id, {
-        status: decision,
-        reviewer_email: currentUser.email,
-        reviewer_name: currentUser.full_name || currentUser.email,
-        reviewer_notes: notes,
-        reviewed_at: now,
-      });
-
-      // If approved, apply the changes to the movement
-      if (decision === "aprovada" && Object.keys(proposed).length > 0) {
-        await base44.entities.Movement.update(request.movement_id, proposed);
-      }
-
-      // Log
-      await base44.entities.ActivityLog.create({
-        user_email: currentUser.email,
-        user_name: currentUser.full_name || currentUser.email,
-        action: decision === "aprovada" ? "Aprovou solicitação de alteração" : "Rejeitou solicitação de alteração",
-        module: "Solicitações",
-        entity_id: request.id,
-        details: `Movimento: ${request.movement_summary} | Notas: ${notes}`,
+      // Call approveMovementChange to handle versioning and approval
+      await base44.functions.invoke('approveMovementChange', {
+        request_id: request.id,
+        action: decision,
+        reviewer_notes: notes
       });
 
       // Notify requester
