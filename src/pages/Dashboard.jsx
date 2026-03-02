@@ -43,6 +43,20 @@ export default function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [overdueClassA, setOverdueClassA] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [healthScore, setHealthScore] = useState(null);
+  const [healthDetails, setHealthDetails] = useState(null);
+  const [healthLoading, setHealthLoading] = useState(true);
+
+  const loadHealth = () => {
+    setHealthLoading(true);
+    base44.functions.invoke("calcHealthScore")
+      .then(res => {
+        setHealthScore(res.data?.score ?? null);
+        setHealthDetails(res.data?.details ?? null);
+      })
+      .catch(() => {})
+      .finally(() => setHealthLoading(false));
+  };
 
   useEffect(() => {
     Promise.all([
@@ -57,6 +71,11 @@ export default function Dashboard() {
       setOverdueClassA(overdueA);
       setLoading(false);
     });
+
+    loadHealth();
+    // Refresh health score every 6 hours
+    const interval = setInterval(loadHealth, 6 * 60 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const now = new Date();
