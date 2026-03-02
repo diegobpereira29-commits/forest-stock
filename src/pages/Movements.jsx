@@ -33,6 +33,7 @@ export default function Movements() {
   const [filterType, setFilterType] = useState("all");
   const [filterDate, setFilterDate] = useState("");
   const [page, setPage] = useState(1);
+  const [historyMovementId, setHistoryMovementId] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setCurrentUser).catch(() => {});
