@@ -6,8 +6,9 @@ import {
   LayoutDashboard, Package, ArrowLeftRight, FolderOpen,
   ClipboardList, BarChart3, TreePine, Menu, X, LogOut,
   ChevronRight, AlertTriangle, Warehouse, Truck, Bot,
-  Users, ChevronDown, AlertOctagon, UsersRound, ShieldAlert
+  Users, ChevronDown, UsersRound, ShieldAlert
 } from "lucide-react";
+import NotificationCenter from "@/components/layout/NotificationCenter";
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
