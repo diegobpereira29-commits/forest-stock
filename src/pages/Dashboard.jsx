@@ -40,17 +40,20 @@ export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [movements, setMovements] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [overdueClassA, setOverdueClassA] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
       base44.entities.Product.list(),
       base44.entities.Movement.list("-date", 500),
-      base44.entities.Project.list()
-    ]).then(([p, m, pr]) => {
+      base44.entities.Project.list(),
+      base44.entities.CycleInventorySchedule.filter({ status: "atrasado", inventory_class: "A" }),
+    ]).then(([p, m, pr, overdueA]) => {
       setProducts(p);
       setMovements(m);
       setProjects(pr);
+      setOverdueClassA(overdueA);
       setLoading(false);
     });
   }, []);
