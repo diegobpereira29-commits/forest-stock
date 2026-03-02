@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Package, ArrowLeftRight, FolderOpen,
   ClipboardList, BarChart3, TreePine, Menu, X, LogOut,
   ChevronRight, AlertTriangle, Warehouse, Truck, Bot,
-  Users, ChevronDown, AlertOctagon
+  Users, ChevronDown, AlertOctagon, UsersRound
 } from "lucide-react";
 
 export default function Layout({ children, currentPageName }) {
