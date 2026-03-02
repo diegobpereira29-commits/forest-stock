@@ -77,6 +77,7 @@ export default function Movements() {
 
   const openForm = (type) => { setFormType(type); setEditData(null); setShowForm(true); };
   const openEdit = (movement) => { setEditData(movement); setFormType(movement.type); setShowForm(true); };
+  const openRequest = (movement) => { setRequestTarget(movement); setShowForm(false); };
 
   return (
     <div className="space-y-4">
