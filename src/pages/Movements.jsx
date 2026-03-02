@@ -8,6 +8,7 @@ import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import MovementForm from "@/components/movements/MovementForm";
 import RequestChangeModal from "@/components/movements/RequestChangeModal";
+import MovementHistoryModal from "@/components/movements/MovementHistoryModal";
 import { MOVEMENT_LABELS } from "@/components/shared/movementTypes";
 
 const TYPE_STYLE = {
