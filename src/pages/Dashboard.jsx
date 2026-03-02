@@ -113,6 +113,18 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Alerta Crítico — Classe A atrasados */}
+      {overdueClassA.length > 0 && (
+        <div className="bg-red-600 text-white rounded-xl p-4 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-white shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold">⚠️ ALERTA CRÍTICO — {overdueClassA.length} {overdueClassA.length === 1 ? "item Classe A com contagem atrasada" : "itens Classe A com contagem atrasada"}</p>
+            <p className="text-xs text-red-200 mt-0.5">{overdueClassA.slice(0, 3).map(s => s.product_name).join(", ")}{overdueClassA.length > 3 ? ` e mais ${overdueClassA.length - 3}...` : ""}</p>
+          </div>
+          <Link to={createPageUrl("Inventory")} className="ml-auto text-xs text-white font-medium hover:underline whitespace-nowrap">Ver inventário →</Link>
+        </div>
+      )}
+
       {/* Alerts */}
       {lowStock.length > 0 && (
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
