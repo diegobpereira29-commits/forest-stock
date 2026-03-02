@@ -43,6 +43,7 @@ export default function Layout({ children, currentPageName }) {
     { label: "Inventário", icon: ClipboardList, page: "Inventory" },
     { label: "Fornecedores", icon: Truck, page: "Suppliers" },
     { label: "Relatórios", icon: BarChart3, page: "Reports" },
+    { label: "Risco Operacional", icon: AlertTriangle, page: "OperationalRisk" },
     { label: "Assistente IA", icon: Bot, page: "Assistant" },
     { label: "Auditoria por Equipe", icon: UsersRound, page: "TeamAudit" },
     { label: "Auditoria e Governança", icon: ShieldAlert, page: "AuditGovernance" },
