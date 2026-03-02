@@ -45,6 +45,7 @@ export default function Movements() {
 
   const canWrite = currentUser?.role === "admin" || currentUser?.role === "almoxarife";
   const isAdmin = currentUser?.role === "admin";
+  const isAlmoxarife = currentUser?.role === "almoxarife";
 
   const filtered = movements.filter(m => {
     const matchSearch = !search || m.product_name?.toLowerCase().includes(search.toLowerCase());
