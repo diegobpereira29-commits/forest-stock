@@ -12,7 +12,7 @@ export default function AuditGovernance() {
 
   const load = async () => {
     setLoading(true);
-    const list = await base44.entities.AuditAlert.filter({ status: 'open' }, '-created_date', 500);
+    const list = await base44.entities.AuditAlert.filter({ status: 'open' }, '-created_date', 100);
     setAlerts(list);
     setLoading(false);
   };
