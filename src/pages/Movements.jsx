@@ -123,6 +123,15 @@ export default function Movements() {
         />
       )}
 
+      {requestTarget && (
+        <RequestChangeModal
+          movement={requestTarget}
+          currentUser={currentUser}
+          onClose={() => setRequestTarget(null)}
+          onSaved={() => { setRequestTarget(null); }}
+        />
+      )}
+
       {/* Table */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         {loading ? (
