@@ -106,16 +106,32 @@ export default function NotificationCenter() {
   const load = async () => {
     setLoading(true);
     try {
+      const user = await base44.auth.me().catch(() => null);
       const sixtyDaysAgo = new Date(Date.now() - 60 * 86400_000).toISOString().slice(0, 10);
-      const [auditAlerts, changeRequests, products, losses] = await Promise.all([
+      const [auditAlerts, changeRequests, products, losses, savedNotifs] = await Promise.all([
         base44.entities.AuditAlert.filter({ status: "open" }, "-created_date", 50),
         base44.entities.MovementChangeRequest.filter({ status: "pendente" }, "-created_date", 50),
         base44.entities.Product.list("-name", 200),
         base44.entities.Movement.filter({ type: "perda" }, "-date", 30),
+        user ? base44.entities.Notification.filter({ user_email: user.email }, "-created_date", 50) : Promise.resolve([]),
       ]);
       const lowStock = products.filter(p => p.min_stock > 0 && p.current_stock <= p.min_stock);
       const losses60 = losses.filter(m => m.date >= sixtyDaysAgo);
-      setNotifications(buildNotifications(auditAlerts, changeRequests, lowStock, losses60));
+      const base = buildNotifications(auditAlerts, changeRequests, lowStock, losses60);
+
+      // Merge saved proactive notifications from DB
+      const proactive = savedNotifs.map(n => ({
+        id: `notif_${n.id}`,
+        type: "proactive",
+        title: n.title,
+        message: n.message,
+        date: n.created_date,
+        link: null,
+        read: n.read || false,
+        dbId: n.id,
+      }));
+
+      setNotifications([...proactive, ...base]);
     } catch (e) {}
     setLoading(false);
   };
