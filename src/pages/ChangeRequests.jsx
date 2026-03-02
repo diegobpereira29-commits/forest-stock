@@ -26,9 +26,12 @@ export default function ChangeRequests() {
     load();
   }, []);
 
+  // Reset page when filter changes
+  useEffect(() => { setPage(1); }, [filterStatus]);
+
   const load = () => {
     setLoading(true);
-    base44.entities.MovementChangeRequest.list("-created_date", 200)
+    base44.entities.MovementChangeRequest.list("-created_date", 100)
       .then(r => { setRequests(r); setLoading(false); })
       .catch(() => setLoading(false));
   };

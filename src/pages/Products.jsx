@@ -47,6 +47,9 @@ export default function Products() {
   const safePage = Math.min(page, totalPages);
   const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
+  // Reset page when filters change
+  useEffect(() => { setPage(1); }, [search, filterCat, filterAlert]);
+
   const handleSave = async (data) => {
     if (editing) {
       await base44.entities.Product.update(editing.id, data);

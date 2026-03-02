@@ -36,6 +36,9 @@ export default function Movements() {
     base44.auth.me().then(setCurrentUser).catch(() => {});
   }, []);
 
+  // Reset page when filters change
+  useEffect(() => { setPage(1); }, [search, filterType, filterDate]);
+
   const load = () => {
     Promise.all([
       base44.entities.Movement.list("-date", 300),
