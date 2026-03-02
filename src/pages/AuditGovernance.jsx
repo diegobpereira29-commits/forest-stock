@@ -33,10 +33,14 @@ export default function AuditGovernance() {
     team_risk: alerts.filter(a => a.type === 'team_risk').length,
   }), [alerts]);
 
-  const unplanned = alerts.filter(a => a.type === 'unplanned_out');
+  const unplanned  = alerts.filter(a => a.type === 'unplanned_out');
   const deviations = alerts.filter(a => a.type === 'plan_deviation');
-  const sensitive = alerts.filter(a => a.type === 'sensitive_product');
-  const teamRisk = alerts.filter(a => a.type === 'team_risk');
+  const sensitive  = alerts.filter(a => a.type === 'sensitive_product');
+  const teamRisk   = alerts.filter(a => a.type === 'team_risk');
+
+  const totalPages = Math.max(1, Math.ceil(alerts.length / PAGE_SIZE));
+  const safePage   = Math.min(page, totalPages);
+  const paginatedAlerts = alerts.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   if (loading) return (
     <div className="flex items-center justify-center h-48">
