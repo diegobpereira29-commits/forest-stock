@@ -106,7 +106,7 @@ export default function ChangeRequests() {
               <tbody>
                 {filtered.length === 0 ? (
                   <tr><td colSpan={7} className="text-center text-gray-400 py-12 text-sm">Nenhuma solicitação encontrada</td></tr>
-                ) : filtered.map(r => {
+                ) : paginated.map(r => {
                   const st = STATUS_STYLE[r.status] || STATUS_STYLE.pendente;
                   const Icon = st.icon;
                   return (
@@ -142,7 +142,7 @@ export default function ChangeRequests() {
           </div>
         )}
       </div>
-      <p className="text-xs text-gray-400">{filtered.length} solicitação(ões)</p>
+      <Pagination page={safePage} totalPages={totalPages} onChange={setPage} totalItems={filtered.length} />
 
       {selected && (
         <RequestReviewModal
