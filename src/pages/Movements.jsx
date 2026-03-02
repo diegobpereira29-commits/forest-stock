@@ -52,12 +52,16 @@ export default function Movements() {
   const isAdmin = currentUser?.role === "admin";
   const isAlmoxarife = currentUser?.role === "almoxarife";
 
-  const filtered = movements.filter(m => {
+  const filtered = useMemo(() => movements.filter(m => {
     const matchSearch = !search || m.product_name?.toLowerCase().includes(search.toLowerCase());
     const matchType = filterType === "all" || m.type === filterType;
     const matchDate = !filterDate || m.date?.startsWith(filterDate);
     return matchSearch && matchType && matchDate;
-  });
+  }), [movements, search, filterType, filterDate]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   const handleSave = async (data) => {
     const payload = editData
