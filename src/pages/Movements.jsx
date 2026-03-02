@@ -25,6 +25,7 @@ export default function Movements() {
   const [showForm, setShowForm] = useState(false);
   const [formType, setFormType] = useState("entrada");
   const [editData, setEditData] = useState(null);
+  const [requestTarget, setRequestTarget] = useState(null);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterDate, setFilterDate] = useState("");
