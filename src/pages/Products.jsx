@@ -127,7 +127,7 @@ export default function Products() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map(p => {
+                {paginated.map(p => {
                   const isLow = p.min_stock > 0 && p.current_stock <= p.min_stock;
                   return (
                     <tr key={p.id} className={`border-b border-gray-50 hover:bg-gray-50/50 transition-colors ${isLow ? "bg-red-50/30" : ""}`}>
@@ -162,7 +162,7 @@ export default function Products() {
           </div>
         )}
       </div>
-      <p className="text-xs text-gray-400">{filtered.length} produto(s) encontrado(s)</p>
+      <Pagination page={safePage} totalPages={totalPages} onChange={setPage} totalItems={filtered.length} />
     </div>
   );
 }
