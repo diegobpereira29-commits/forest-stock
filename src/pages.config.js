@@ -49,6 +49,7 @@
  */
 import Assistant from './pages/Assistant';
 import AuditGovernance from './pages/AuditGovernance';
+import ChangeRequests from './pages/ChangeRequests';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
 import Losses from './pages/Losses';
@@ -60,13 +61,13 @@ import Stock from './pages/Stock';
 import Suppliers from './pages/Suppliers';
 import TeamAudit from './pages/TeamAudit';
 import Users from './pages/Users';
-import ChangeRequests from './pages/ChangeRequests';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Assistant": Assistant,
     "AuditGovernance": AuditGovernance,
+    "ChangeRequests": ChangeRequests,
     "Dashboard": Dashboard,
     "Inventory": Inventory,
     "Losses": Losses,
@@ -78,7 +79,6 @@ export const PAGES = {
     "Suppliers": Suppliers,
     "TeamAudit": TeamAudit,
     "Users": Users,
-    "ChangeRequests": ChangeRequests,
 }
 
 export const pagesConfig = {
