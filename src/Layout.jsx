@@ -207,6 +207,7 @@ export default function Layout({ children, currentPageName }) {
                 : currentPageName === "Users" ? "Usuários"
                 : currentPageName === "TeamAudit" ? "Auditoria por Equipe"
                 : currentPageName === "AuditGovernance" ? "Auditoria e Governança"
+                : currentPageName === "ChangeRequests" ? "Solicitações de Alteração"
                 : currentPageName || ""}
             </h1>
           </div>
