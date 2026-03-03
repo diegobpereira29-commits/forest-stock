@@ -54,6 +54,7 @@ import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
 import Losses from './pages/Losses';
 import Movements from './pages/Movements';
+import OperationalRisk from './pages/OperationalRisk';
 import Products from './pages/Products';
 import Projects from './pages/Projects';
 import Reports from './pages/Reports';
@@ -61,7 +62,6 @@ import Stock from './pages/Stock';
 import Suppliers from './pages/Suppliers';
 import TeamAudit from './pages/TeamAudit';
 import Users from './pages/Users';
-import OperationalRisk from './pages/OperationalRisk';
 import __Layout from './Layout.jsx';
 
 
@@ -73,6 +73,7 @@ export const PAGES = {
     "Inventory": Inventory,
     "Losses": Losses,
     "Movements": Movements,
+    "OperationalRisk": OperationalRisk,
     "Products": Products,
     "Projects": Projects,
     "Reports": Reports,
@@ -80,7 +81,6 @@ export const PAGES = {
     "Suppliers": Suppliers,
     "TeamAudit": TeamAudit,
     "Users": Users,
-    "OperationalRisk": OperationalRisk,
 }
 
 export const pagesConfig = {

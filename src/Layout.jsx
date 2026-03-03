@@ -203,7 +203,14 @@ export default function Layout({ children, currentPageName }) {
           </button>
           <div className="flex-1">
             <h1 className="text-base font-semibold text-gray-800">
-              {currentPageName === "Stock" ? "Visão de Estoque"
+              {currentPageName === "Dashboard" ? "Visão Geral"
+                : currentPageName === "Products" ? "Produtos"
+                : currentPageName === "Projects" ? "Projetos"
+                : currentPageName === "Inventory" ? "Inventário"
+                : currentPageName === "Suppliers" ? "Fornecedores"
+                : currentPageName === "Reports" ? "Relatórios"
+                : currentPageName === "Assistant" ? "Assistente IA"
+                : currentPageName === "Stock" ? "Visão de Estoque"
                 : currentPageName === "Movements" ? "Movimentações"
                 : currentPageName === "Losses" ? "Perdas de Processo"
                 : currentPageName === "Users" ? "Usuários"
