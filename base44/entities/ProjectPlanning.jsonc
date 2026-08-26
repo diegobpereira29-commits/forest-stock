@@ -1,0 +1,44 @@
+{
+  "name": "ProjectPlanning",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "ID do projeto"
+    },
+    "project_name": {
+      "type": "string",
+      "description": "Nome do projeto (cache)"
+    },
+    "product_id": {
+      "type": "string",
+      "description": "ID do produto"
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Nome do produto (cache)"
+    },
+    "planned_quantity": {
+      "type": "number",
+      "description": "Quantidade planejada"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "In\u00edcio do per\u00edodo planejado"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Fim do per\u00edodo planejado"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "product_id",
+    "planned_quantity"
+  ]
+}

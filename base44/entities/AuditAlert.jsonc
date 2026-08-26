@@ -1,0 +1,80 @@
+{
+  "name": "AuditAlert",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "unplanned_out",
+        "plan_deviation",
+        "sensitive_product",
+        "team_risk"
+      ],
+      "description": "Tipo de alerta de auditoria"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "Severidade do alerta"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "resolved"
+      ],
+      "default": "open",
+      "description": "Status do alerta"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descri\u00e7\u00e3o detalhada do alerta"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da primeira detec\u00e7\u00e3o"
+    },
+    "last_detected_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da \u00faltima confirma\u00e7\u00e3o/detec\u00e7\u00e3o"
+    },
+    "movement_id": {
+      "type": "string",
+      "description": "ID da movimenta\u00e7\u00e3o relacionada (quando aplic\u00e1vel)"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "team_id": {
+      "type": "string"
+    },
+    "team_name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "project_name": {
+      "type": "string"
+    },
+    "composite_key": {
+      "type": "string",
+      "description": "Chave de unicidade para evitar duplicatas"
+    }
+  },
+  "required": [
+    "type",
+    "status"
+  ]
+}

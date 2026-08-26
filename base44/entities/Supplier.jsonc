@@ -1,0 +1,34 @@
+{
+  "name": "Supplier",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Nome do fornecedor"
+    },
+    "lead_time_days": {
+      "type": "number",
+      "default": 7,
+      "description": "Lead time em dias (tempo entre pedido e entrega)"
+    },
+    "contact": {
+      "type": "string",
+      "description": "Contato"
+    },
+    "email": {
+      "type": "string",
+      "description": "E-mail"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Telefone"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

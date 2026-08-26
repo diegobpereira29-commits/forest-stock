@@ -1,0 +1,70 @@
+{
+  "name": "WhatsAppLog",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "ID do usu\u00e1rio"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email do usu\u00e1rio"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Matr\u00edcula do funcion\u00e1rio"
+    },
+    "whatsapp_number": {
+      "type": "string",
+      "description": "N\u00famero do WhatsApp"
+    },
+    "action": {
+      "type": "string",
+      "description": "A\u00e7\u00e3o realizada (ex: request_approval, generate_report, create_movement)"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "info",
+        "action",
+        "critical"
+      ],
+      "description": "Tipo de a\u00e7\u00e3o"
+    },
+    "message": {
+      "type": "string",
+      "description": "Mensagem do WhatsApp"
+    },
+    "request_id": {
+      "type": "string",
+      "description": "ID da entidade relacionada (MovementChangeRequest, etc)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "failed"
+      ],
+      "default": "pending",
+      "description": "Status da a\u00e7\u00e3o"
+    },
+    "result": {
+      "type": "string",
+      "description": "Resultado da a\u00e7\u00e3o"
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP da requisi\u00e7\u00e3o"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data e hora da a\u00e7\u00e3o"
+    }
+  },
+  "required": [
+    "action",
+    "whatsapp_number"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "CycleInventorySchedule",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "description": "ID do produto"
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Nome do produto (cache)"
+    },
+    "product_category": {
+      "type": "string",
+      "description": "Categoria do produto (cache)"
+    },
+    "inventory_class": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ],
+      "description": "Classe ABC do produto"
+    },
+    "frequency_days": {
+      "type": "number",
+      "description": "Frequ\u00eancia de contagem em dias (7, 15 ou 30)"
+    },
+    "last_count_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da \u00faltima contagem"
+    },
+    "next_count_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da pr\u00f3xima contagem"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pendente",
+        "realizado",
+        "atrasado"
+      ],
+      "default": "pendente",
+      "description": "Status do agendamento"
+    },
+    "responsible_user_id": {
+      "type": "string",
+      "description": "ID do usu\u00e1rio respons\u00e1vel"
+    },
+    "responsible_user_email": {
+      "type": "string",
+      "description": "Email do usu\u00e1rio respons\u00e1vel"
+    },
+    "team_id": {
+      "type": "string",
+      "description": "ID da equipe (opcional)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es"
+    }
+  },
+  "required": [
+    "product_id",
+    "inventory_class",
+    "frequency_days",
+    "next_count_date",
+    "status"
+  ]
+}

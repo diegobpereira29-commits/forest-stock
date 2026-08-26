@@ -1,0 +1,47 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Nome do projeto"
+    },
+    "area_ha": {
+      "type": "number",
+      "description": "\u00c1rea em hectares"
+    },
+    "location": {
+      "type": "string",
+      "description": "Localiza\u00e7\u00e3o"
+    },
+    "client": {
+      "type": "string",
+      "description": "Cliente"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ativo",
+        "conclu\u00eddo",
+        "suspenso"
+      ],
+      "default": "ativo",
+      "description": "Status do projeto"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "status"
+  ]
+}

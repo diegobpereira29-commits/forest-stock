@@ -1,0 +1,63 @@
+{
+  "name": "MovementChangeRequest",
+  "type": "object",
+  "properties": {
+    "movement_id": {
+      "type": "string",
+      "description": "ID da movimenta\u00e7\u00e3o a ser alterada"
+    },
+    "movement_summary": {
+      "type": "string",
+      "description": "Resumo da movimenta\u00e7\u00e3o (cache para exibi\u00e7\u00e3o)"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Motivo da solicita\u00e7\u00e3o de altera\u00e7\u00e3o"
+    },
+    "proposed_changes": {
+      "type": "string",
+      "description": "JSON com as altera\u00e7\u00f5es propostas"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pendente",
+        "aprovada",
+        "rejeitada"
+      ],
+      "default": "pendente",
+      "description": "Status da solicita\u00e7\u00e3o"
+    },
+    "requester_email": {
+      "type": "string",
+      "description": "E-mail do solicitante"
+    },
+    "requester_name": {
+      "type": "string",
+      "description": "Nome do solicitante"
+    },
+    "reviewer_email": {
+      "type": "string",
+      "description": "E-mail do revisor"
+    },
+    "reviewer_name": {
+      "type": "string",
+      "description": "Nome do revisor"
+    },
+    "reviewer_notes": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es do revisor"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Data da revis\u00e3o"
+    }
+  },
+  "required": [
+    "movement_id",
+    "reason",
+    "proposed_changes",
+    "status"
+  ]
+}

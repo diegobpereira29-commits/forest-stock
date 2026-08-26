@@ -1,0 +1,43 @@
+{
+  "name": "Notification",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "E-mail do destinat\u00e1rio"
+    },
+    "title": {
+      "type": "string",
+      "description": "T\u00edtulo da notifica\u00e7\u00e3o"
+    },
+    "message": {
+      "type": "string",
+      "description": "Mensagem da notifica\u00e7\u00e3o"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "change_request",
+        "approval",
+        "rejection",
+        "info"
+      ],
+      "default": "info",
+      "description": "Tipo da notifica\u00e7\u00e3o"
+    },
+    "reference_id": {
+      "type": "string",
+      "description": "ID da entidade relacionada (ex: MovementChangeRequest)"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false,
+      "description": "Notifica\u00e7\u00e3o lida"
+    }
+  },
+  "required": [
+    "user_email",
+    "title",
+    "message"
+  ]
+}

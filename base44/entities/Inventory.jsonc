@@ -1,0 +1,52 @@
+{
+  "name": "Inventory",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Data do invent\u00e1rio"
+    },
+    "product_id": {
+      "type": "string",
+      "description": "ID do produto"
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Nome do produto"
+    },
+    "system_quantity": {
+      "type": "number",
+      "description": "Quantidade no sistema"
+    },
+    "counted_quantity": {
+      "type": "number",
+      "description": "Quantidade contada"
+    },
+    "difference": {
+      "type": "number",
+      "description": "Diferen\u00e7a"
+    },
+    "responsible": {
+      "type": "string",
+      "description": "Respons\u00e1vel"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pendente",
+        "ajustado"
+      ],
+      "default": "pendente"
+    }
+  },
+  "required": [
+    "date",
+    "product_id",
+    "counted_quantity"
+  ]
+}
